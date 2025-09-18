@@ -82,10 +82,14 @@ export async function logout() {
  */
 export async function isAuthenticated() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/health`, {
+    // Make a request to a protected endpoint to verify authentication
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts?page=1&page_size=1`, {
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    return response.ok;
+    return response.ok && response.status !== 401;
   } catch {
     return false;
   }

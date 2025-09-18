@@ -27,4 +27,5 @@ func Register(app *fiber.App) {
 	protected := api.Group("/", middleware.JWTProtected())
 	// Posts routes (authenticated users only)
 	protected.Get("/posts", handlers.ListPublicPosts)
+	protected.Post("/posts/create", handlers.CreatePost)
 }
